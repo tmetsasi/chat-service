@@ -1,4 +1,4 @@
-Simplified messaging service software which retrieves data from a server and displays it on a website. 
+Simplified messaging service program which retrieves data from a server and displays it on a website. 
 
 Available at: 
 
