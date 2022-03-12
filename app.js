@@ -19,6 +19,15 @@ const redirectTo = (path) => {
   });
 };
 
+const deleteMessages = async (request) => {
+  const url = new URL(request.url);
+  const parts = url.pathname.split("/");
+  const id = parts[2];
+  await messageService.deleteById(id);
+
+  
+};
+
 const listMessages = async () => {
   const data = {
     messages: await messageService.findLastFiveMessages(),
@@ -33,15 +42,19 @@ const addMessage = async (request) => {
   const message = formData.get("message");
 
   await messageService.create(sender, message);
+  
 };
 
 const handleRequest = async (request) => {
-  if (request.method === "GET") {
-    return await listMessages();
+  const url = new URL(request.url);
+  if (request.method === "POST" && url.pathname.includes("delete")) {
+    await deleteMessages(request);
   } else if (request.method === "POST") {
     await addMessage(request);
-    return redirectTo("/");
+  } else {
+    return await listMessages(request);
   }
+  return redirectTo("/")
 };
 
 let port = 7777;

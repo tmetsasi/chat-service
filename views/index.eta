@@ -6,6 +6,10 @@
 </form>
 <ul>
   <% it.messages.forEach((msg) => { %>
-    <li><%= msg.sender %>: <%= msg.message %></li>
+    <li><%= msg.sender %>: <%= msg.message %>
+      <form method='POST' action='/names/<%= msg.id %>/delete'>
+        <input type='submit' value='Delete' />
+      </form>
+    </li>
   <% }); %>
 </ul>
